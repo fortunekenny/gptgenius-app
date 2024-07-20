@@ -1,4 +1,5 @@
-const ProfilePage = () => {
-  return <div>ProfilePage</div>;
+import { UserProfile } from "@clerk/nextjs";
+const UserProfilePage = () => {
+  return <UserProfile />;
 };
-export default ProfilePage;
+export default UserProfilePage;

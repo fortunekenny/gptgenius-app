@@ -5,7 +5,7 @@ const MemberProfile = async () => {
   const user = await currentUser();
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <div>You are not logged in</div>;
   }
 
   return (
