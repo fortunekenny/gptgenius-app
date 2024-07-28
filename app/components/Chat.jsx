@@ -1,44 +1,108 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
-import { generateChatResponse } from "@/utils/actions";
+import { getLlamaResponse } from "@/utils/actions"; // Adjust the import path as needed
 
-const Chat = () => {
-  const [text, setText] = useState("");
-  const [messages, setMessages] = useState([]);
+const LlamaApiForm = () => {
+  const [messages, setMessages] = useState([
+    { role: "system", content: "How may i help you ?" },
+  ]);
+  const [prompt, setPrompt] = useState("");
 
-  const { mutate } = useMutation({
-    mutationFn: (message) => generateChatResponse(message),
+  const { mutate, isLoading, isPending } = useMutation({
+    mutationFn: async (newMessage) => {
+      try {
+        const response = await getLlamaResponse([...messages, newMessage]);
+        return response;
+      } catch (error) {
+        throw new Error(error.message || "Unknown error");
+      }
+    },
+    onSuccess: (response) => {
+      if (response && response.message) {
+        setMessages((prev) => [...prev, response.message]);
+      } else {
+        toast.error("Received unexpected response format.");
+      }
+    },
+    onError: (error) => {
+      console.error("Error in useMutation:", error);
+      toast.error("Something went wrong: " + error.message);
+    },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate(text);
+    if (!prompt.trim()) {
+      toast.error("Prompt cannot be empty");
+      return;
+    }
+
+    const userMessage = { role: "user", content: prompt.trim() };
+    setMessages((prev) => [...prev, userMessage]);
+    mutate(userMessage);
+    setPrompt("");
   };
 
   return (
     <div className="min-h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]">
       <div>
-        <h2 className="text-5xl">messages</h2>
+        {messages.map(({ role, content }, index) => {
+          const avatar = role == "user" ? "👤" : "🤖";
+          const bcg = role === "user" ? "bg-base-200" : "bg-base-100";
+          return (
+            <div
+              key={index}
+              className={`${bcg} flex py-6 -mx-8 px-8 text-xl leading-loose border-b border-base-300`}
+            >
+              <span className="mr-4">{avatar}</span>
+              <p className="max-w-3xl">{content}</p>
+            </div>
+          );
+        })}
+        {isPending ? <span className="loading"></span> : null}
       </div>
+      {/*<div>
+        {messages.map(({ role, content }, index) => (
+          <div
+            key={index}
+            className={`${
+              role === "user" ? "bg-base-200" : "bg-base-100"
+            } flex py-6 px-8 text-xl leading-loose border-b border-base-300`}
+          >
+            <span className="mr-4">{role === "user" ? "👤" : "🤖"}</span>
+            <p className="max-w-3xl">{content}</p>
+          </div>
+        ))}
+        {isPending && <span className="loading"></span>}
+        //{isLoading && <span className="loading"></span>} 
+      </div>*/}
       <form onSubmit={handleSubmit} className="max-w-4xl pt-12">
         <div className="join w-full">
           <input
             type="text"
-            placeholder="Message GeniusGPT"
+            placeholder="Ask GeniusGPT"
             className="input input-bordered join-item w-full"
-            value={text}
-            required
-            onChange={(e) => setText(e.target.value)}
+            value={prompt}
+            // required
+            onChange={(e) => setPrompt(e.target.value)}
+            disabled={isLoading}
           />
-          <button className="btn btn-primary join-item" type="submit">
-            ask question
+          <button
+            className="btn btn-primary join-item"
+            type="submit"
+            disabled={isPending}
+            // disabled={isLoading}
+          >
+            {isPending ? "Please wait..." : "Ask question"}
+            {/* {isLoading ? "Please wait..." : "Ask question"} */}
           </button>
         </div>
       </form>
     </div>
   );
 };
-export default Chat;
+
+export default LlamaApiForm;

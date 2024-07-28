@@ -14,12 +14,13 @@
     "@tanstack/react-query": "^5.8.1",
     "@tanstack/react-query-devtools": "^5.8.1",
     "axios": "^1.6.1",
+    "llamaai": "^1.0.4",
     "next": "14.2.5",
     "openai": "^4.14.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
-    "react-icons": "^4.11.0"
+    "react-icons": "^4.12.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
