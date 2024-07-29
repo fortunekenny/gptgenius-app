@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { getLlamaResponse } from "@/utils/actions"; // Adjust the import path as needed
 
 const LlamaApiForm = () => {
-  const [messages, setMessages] = useState([
+  /*const [messages, setMessages] = useState([
     { role: "system", content: "How may i help you ?" },
   ]);
   const [prompt, setPrompt] = useState("");
@@ -31,7 +31,55 @@ const LlamaApiForm = () => {
       console.error("Error in useMutation:", error);
       toast.error("Something went wrong: " + error.message);
     },
+  });*/
+
+  const [messages, setMessages] = useState(() => {
+    if (typeof window !== "undefined") {
+      // Load messages from localStorage if available and in browser environment
+      const savedMessages = localStorage.getItem("chatMessages");
+      return savedMessages
+        ? JSON.parse(savedMessages)
+        : [{ role: "system", content: "You are a helpful assistant." }];
+    } else {
+      // Fallback for SSR, initial state without localStorage
+      return [{ role: "system", content: "You are a helpful assistant." }];
+    }
   });
+
+  const [prompt, setPrompt] = useState("");
+
+  const { mutate, isLoading, isPending } = useMutation({
+    mutationFn: async (newMessage) => {
+      try {
+        const response = await getLlamaResponse([...messages, newMessage]);
+        return response;
+      } catch (error) {
+        throw new Error(error.message || "Unknown error");
+      }
+    },
+    onSuccess: (response) => {
+      if (response && response.message) {
+        const updatedMessages = [...messages, response.message];
+        setMessages(updatedMessages);
+        if (typeof window !== "undefined") {
+          localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+        }
+      } else {
+        toast.error("Received unexpected response format.");
+      }
+    },
+    onError: (error) => {
+      console.error("Error in useMutation:", error);
+      toast.error("Something went wrong: " + error.message);
+    },
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Save messages to localStorage whenever messages state changes
+      localStorage.setItem("chatMessages", JSON.stringify(messages));
+    }
+  }, [messages]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

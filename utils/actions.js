@@ -41,3 +41,42 @@ export async function getLlamaResponse(chatMessages) {
     throw error;
   }
 }
+
+export const getExistingTour = async ({ city, country }) => {
+  return null;
+};
+
+export const generateTourResponse = async ({ city, country }) => {
+  return null;
+};
+
+export const createNewTour = async (tour) => {
+  return null;
+};
+
+/*
+const apiRequestJson = {
+messages: [{ role: "user", content: "create a one-day tour of boston in USA" }],
+functions: [
+    {
+      name: "get_me_tours",
+      description: "get me exciting places in a city of a country",
+      parameters: {
+        type: "object",
+        properties: {
+          city: {
+            type: "string",
+            description: "the name of  city in a country, e.g. San Francisco, USA",
+          },
+          country: {
+            type: "string",
+            description: "name of a country",
+          },
+        },
+      },
+      required: ["city", "country"],
+    },
+  ],
+  stream: false,
+  function_call: "get_me_tours",
+}*/
