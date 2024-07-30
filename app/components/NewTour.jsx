@@ -13,7 +13,8 @@ const NewTour = () => {
   const {
     mutate,
     isPending,
-    data: tour,
+    data: result, // data is renamed result
+    // data: tour,
   } = useMutation({
     mutationFn: async (destination) => {
       const newTour = await generateTourResponse(destination);
@@ -65,7 +66,14 @@ const NewTour = () => {
         </div>
       </form>
       <div className="mt-16">
-        <div className="mt-16">{tour ? <TourInfo tour={tour} /> : null}</div>
+        <div className="mt-16">
+          {result ? (
+            <TourInfo
+              tour={result.tour}
+              tokens={{ tokens: result.total_tokens }}
+            />
+          ) : null}
+        </div>
       </div>
     </>
   );
