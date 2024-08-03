@@ -8,17 +8,27 @@ import {
 } from "@/utils/actions";
 import toast from "react-hot-toast";
 import TourInfo from "./TourInfo";
+import { useState } from "react";
 
 const NewTour = () => {
+  const [exist, setExist] = useState(false);
+  const queryClient = useQueryClient();
   const {
     mutate,
     isPending,
-    data: result, // data is renamed result
+    data: tour, // data is renamed result
     // data: tour,
   } = useMutation({
     mutationFn: async (destination) => {
+      const existingTour = await getExistingTour(destination);
+      if (existingTour) {
+        setExist(true);
+        return existingTour;
+      }
       const newTour = await generateTourResponse(destination);
       if (newTour) {
+        await createNewTour(newTour);
+        queryClient.invalidateQueries({ queryKey: ["tours"] });
         return newTour;
       }
       toast.error("No matching city found...");
@@ -66,14 +76,7 @@ const NewTour = () => {
         </div>
       </form>
       <div className="mt-16">
-        <div className="mt-16">
-          {result ? (
-            <TourInfo
-              tour={result.tour}
-              tokens={{ tokens: result.total_tokens }}
-            />
-          ) : null}
-        </div>
+        <div className="mt-16">{tour ? <TourInfo tour={tour} /> : null}</div>
       </div>
     </>
   );

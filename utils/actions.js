@@ -1,6 +1,8 @@
 "use server";
 
 import LlamaAI from "llamaai";
+import prisma from "@/utils/db";
+import { Prisma } from "@prisma/client";
 
 const llamaAPI = new LlamaAI(process.env.LLAMA_API_KEY);
 
@@ -42,10 +44,6 @@ export async function getLlamaResponse(chatMessages) {
   }
 }
 
-export const getExistingTour = async ({ city, country }) => {
-  return null;
-};
-
 export const generateTourResponse = async ({ city, country }) => {
   const query = `Find a ${city} in this ${country}.
 If ${city} in this ${country} exists, create a list of things families can do in ${city}, ${country}. 
@@ -82,13 +80,8 @@ If you can't find info on the exact ${city}, or ${city} does not exist, or its p
       );
     }
 
-    // return tourData.tour;
-    const result = {
-      tour: tourData.tour,
-      total_tokens: response.usage.total_tokens,
-    };
-    console.log(result);
-    return result;
+    console.log("total_tokens", tokens);
+    return tourData.tour;
   } catch (error) {
     console.error(
       "Error in generateTourResponse:",
@@ -98,33 +91,54 @@ If you can't find info on the exact ${city}, or ${city} does not exist, or its p
   }
 };
 
-export const createNewTour = async (tour) => {
-  return null;
+export const getExistingTour = async ({ city, country }) => {
+  city = city.charAt(0).toUpperCase() + city.slice(1);
+  country = country.charAt(0).toUpperCase() + country.slice(1);
+  return prisma.tour.findUnique({
+    where: {
+      city_country: {
+        city,
+        country,
+      },
+    },
+  });
 };
 
-/*
-const apiRequestJson = {
-messages: [{ role: "user", content: "create a one-day tour of boston in USA" }],
-functions: [
-    {
-      name: "get_me_tours",
-      description: "get me exciting places in a city of a country",
-      parameters: {
-        type: "object",
-        properties: {
-          city: {
-            type: "string",
-            description: "the name of  city in a country, e.g. San Francisco, USA",
-          },
-          country: {
-            type: "string",
-            description: "name of a country, e.g Nigeria ",
-          },
-        },
-      },
-      required: ["city", "country"],
-    },
-  ],
-  stream: false,
-  function_call: "get_me_tours",
-}*/
+/*export const createNewTour = async (tour) => {
+  return prisma.tour.create({
+    data: tour,
+  });
+};*/
+
+export const createNewTour = async (tour) => {
+  // Validate the input data against the schema
+  if (
+    !tour.city ||
+    !tour.country ||
+    !tour.title ||
+    !tour.description ||
+    !tour.stops
+  ) {
+    throw new Error("Invalid tour data. Missing required fields.");
+  }
+
+  // console.log("Creating new tour with data:", tour);
+  try {
+    return await prisma.tour.create({
+      data: tour,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      console.error("Unique constraint failed on the fields: (city, country)");
+      throw new Error(
+        "Tour for the specified city and country already exists."
+      );
+    } else {
+      console.error("Error creating new tour:", error);
+      throw error;
+    }
+  }
+};
