@@ -1,8 +1,11 @@
 import { UserButton } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+import { currentUser, auth } from "@clerk/nextjs/server";
+import { fetchOrGenerateTokens } from "@/utils/actions";
 
 const MemberProfile = async () => {
   const user = await currentUser();
+  const { userId } = auth();
+  await fetchOrGenerateTokens(userId);
 
   if (!user) {
     return <div>You are not logged in</div>;

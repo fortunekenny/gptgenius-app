@@ -4,7 +4,7 @@ const TourInfo = ({ tour }) => {
   if (!tour) {
     return <p>No tour data available.</p>;
   }
-
+  console.log("tourinfo", tour);
   const { title, description, stops } = tour;
   return (
     <div className="max-w-2xl">
@@ -12,7 +12,7 @@ const TourInfo = ({ tour }) => {
       <p className="leading-loose mb-6">{description}</p>
       <ul>
         {stops.map((stop, index) => (
-          <li key={index} className="mb-4 bg-base-100 p-4 rounded-xl">
+          <li key={stop} className="mb-4 bg-base-100 p-4 rounded-xl">
             <p className="text">{stop}</p>
           </li>
         ))}

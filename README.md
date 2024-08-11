@@ -43,27 +43,27 @@ app/layout.js
 
 ```js
 export const metadata = {
-  title: 'GPTGenius',
+  title: "GPTGenius",
   description:
-    'GPTGenius: Your AI language companion. Powered by OpenAI, it enhances your conversations, content creation, and more!',
+    "GPTGenius: Your AI language companion. Powered by OpenAI, it enhances your conversations, content creation, and more!",
 };
 ```
 
 app/page.js
 
 ```js
-import Link from 'next/link';
+import Link from "next/link";
 const HomePage = () => {
   return (
-    <div className='hero min-h-screen bg-base-200'>
-      <div className='hero-content text-center'>
-        <div className='max-w-md'>
-          <h1 className='text-6xl font-bold text-primary'>GPTGenius</h1>
-          <p className='py-6 text-lg leading-loose'>
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content text-center">
+        <div className="max-w-md">
+          <h1 className="text-6xl font-bold text-primary">GPTGenius</h1>
+          <p className="py-6 text-lg leading-loose">
             GPTGenius: Your AI language companion. Powered by OpenAI, it
             enhances your conversations, content creation, and more!
           </p>
-          <Link href='/chat' className='btn btn-secondary '>
+          <Link href="/chat" className="btn btn-secondary ">
             Get Started
           </Link>
         </div>
@@ -105,12 +105,12 @@ const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 layout.js
 
 ```js
-import { ClerkProvider } from '@clerk/nextjs';
+import { ClerkProvider } from "@clerk/nextjs";
 
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang='en'>
+      <html lang="en">
         <body>{children}</body>
       </html>
     </ClerkProvider>
@@ -121,17 +121,17 @@ export default function RootLayout({ children }) {
 middleware.ts
 
 ```js
-import { authMiddleware } from '@clerk/nextjs';
+import { authMiddleware } from "@clerk/nextjs";
 
 // This example protects all routes including api/trpc routes
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-  publicRoutes: ['/'],
+  publicRoutes: ["/"],
 });
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
 ```
 
@@ -143,11 +143,11 @@ export const config = {
 app/sign-up/[[...sign-up]]/page.js
 
 ```js
-import { SignUp } from '@clerk/nextjs';
+import { SignUp } from "@clerk/nextjs";
 
 const SignUpPage = () => {
   return (
-    <div className='min-h-screen flex justify-center items-center'>
+    <div className="min-h-screen flex justify-center items-center">
       <SignUp />
     </div>
   );
@@ -158,11 +158,11 @@ export default SignUpPage;
 app/sign-in/[[...sign-in]]/page.js
 
 ```js
-import { SignIn } from '@clerk/nextjs';
+import { SignIn } from "@clerk/nextjs";
 
 const SignInPage = () => {
   return (
-    <div className='min-h-screen flex justify-center items-center'>
+    <div className="min-h-screen flex justify-center items-center">
       <SignIn />
     </div>
   );
@@ -207,27 +207,27 @@ import { FaBeer } from 'react-icons/fa';
 layout.js
 
 ```js
-import { FaBarsStaggered } from 'react-icons/fa6';
-import Sidebar from '@/components/Sidebar';
+import { FaBarsStaggered } from "react-icons/fa6";
+import Sidebar from "@/components/Sidebar";
 const layout = ({ children }) => {
   return (
-    <div className='drawer lg:drawer-open'>
-      <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-content'>
+    <div className="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
         {/* Page content here */}
         <label
-          htmlFor='my-drawer-2'
-          className='drawer-button lg:hidden fixed top-6 right-6'
+          htmlFor="my-drawer-2"
+          className="drawer-button lg:hidden fixed top-6 right-6"
         >
-          <FaBarsStaggered className='w-8 h-8 text-primary' />
+          <FaBarsStaggered className="w-8 h-8 text-primary" />
         </label>
-        <div className='bg-base-200 px-8 py-12 min-h-screen'>{children}</div>
+        <div className="bg-base-200 px-8 py-12 min-h-screen">{children}</div>
       </div>
-      <div className='drawer-side'>
+      <div className="drawer-side">
         <label
-          htmlFor='my-drawer-2'
-          aria-label='close sidebar'
-          className='drawer-overlay'
+          htmlFor="my-drawer-2"
+          aria-label="close sidebar"
+          className="drawer-overlay"
         ></label>
         <Sidebar />
       </div>
@@ -244,13 +244,13 @@ export default layout;
 Sidebar.jsx
 
 ```js
-import SidebarHeader from './SidebarHeader';
-import NavLinks from './NavLinks';
-import MemberProfile from './MemberProfile';
+import SidebarHeader from "./SidebarHeader";
+import NavLinks from "./NavLinks";
+import MemberProfile from "./MemberProfile";
 
 const Sidebar = () => {
   return (
-    <div className='px-4 w-80 min-h-full bg-base-300 py-12 grid grid-rows-[auto,1fr,auto] '>
+    <div className="px-4 w-80 min-h-full bg-base-300 py-12 grid grid-rows-[auto,1fr,auto] ">
       {/* first row */}
       <SidebarHeader />
       {/* second row */}
@@ -268,14 +268,14 @@ export default Sidebar;
 - create ThemeToggle
 
 ```js
-import ThemeToggle from './ThemeToggle';
-import { SiOpenaigym } from 'react-icons/si';
+import ThemeToggle from "./ThemeToggle";
+import { SiOpenaigym } from "react-icons/si";
 
 const SidebarHeader = () => {
   return (
-    <div className='flex items-center mb-4 gap-4 px-4'>
-      <SiOpenaigym className='w-10 h-10 text-primary' />
-      <h2 className='text-xl font-extrabold text-primary mr-auto'>GPTGenius</h2>
+    <div className="flex items-center mb-4 gap-4 px-4">
+      <SiOpenaigym className="w-10 h-10 text-primary" />
+      <h2 className="text-xl font-extrabold text-primary mr-auto">GPTGenius</h2>
       <ThemeToggle />
     </div>
   );
@@ -312,21 +312,21 @@ This component is responsible for rendering navigation links based on the `links
 ## Solution - NavLinks
 
 ```js
-import Link from 'next/link';
+import Link from "next/link";
 const links = [
-  { href: '/chat', label: 'chat' },
-  { href: '/tours', label: 'tours' },
-  { href: '/tours/new-tour', label: 'new tour' },
-  { href: '/profile', label: 'profile' },
+  { href: "/chat", label: "chat" },
+  { href: "/tours", label: "tours" },
+  { href: "/tours/new-tour", label: "new tour" },
+  { href: "/profile", label: "profile" },
 ];
 
 const NavLinks = () => {
   return (
-    <ul className='menu  text-base-content'>
+    <ul className="menu  text-base-content">
       {links.map((link) => {
         return (
           <li key={link.href}>
-            <Link href={link.href} className='capitalize'>
+            <Link href={link.href} className="capitalize">
               {link.label}
             </Link>
           </li>
@@ -368,13 +368,13 @@ This component fetches the currently authenticated user and displays their email
 ## Solution - MemberProfile
 
 ```js
-import { UserButton, currentUser, auth } from '@clerk/nextjs';
+import { UserButton, currentUser, auth } from "@clerk/nextjs";
 const MemberProfile = async () => {
   const user = await currentUser();
   const { userId } = auth();
   return (
-    <div className='px-4 flex items-center gap-2'>
-      <UserButton afterSignOutUrl='/' />
+    <div className="px-4 flex items-center gap-2">
+      <UserButton afterSignOutUrl="/" />
       <p>{user.emailAddresses[0].emailAddress}</p>
     </div>
   );
@@ -432,14 +432,14 @@ tailwind.config.js
 ```
 
 ```js
-'use client';
+"use client";
 
-import { BsMoonFill, BsSunFill } from 'react-icons/bs';
-import { useState } from 'react';
+import { BsMoonFill, BsSunFill } from "react-icons/bs";
+import { useState } from "react";
 
 const themes = {
-  winter: 'winter',
-  dracula: 'dracula',
+  winter: "winter",
+  dracula: "dracula",
 };
 
 const ThemeToggle = () => {
@@ -447,16 +447,16 @@ const ThemeToggle = () => {
 
   const toggleTheme = () => {
     const newTheme = theme === themes.winter ? themes.dracula : themes.winter;
-    document.documentElement.setAttribute('data-theme', newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
     setTheme(newTheme);
   };
 
   return (
-    <button onClick={toggleTheme} className='btn btn-sm btn-outline'>
-      {theme === 'winter' ? (
-        <BsMoonFill className='h-4 w-4 ' />
+    <button onClick={toggleTheme} className="btn btn-sm btn-outline">
+      {theme === "winter" ? (
+        <BsMoonFill className="h-4 w-4 " />
       ) : (
-        <BsSunFill className='h-4 w-4' />
+        <BsSunFill className="h-4 w-4" />
       )}
     </button>
   );
@@ -479,7 +479,7 @@ This component serves as a page for displaying the user's profile information. I
 ## Solution - Profile Page
 
 ```js
-import { UserProfile } from '@clerk/nextjs';
+import { UserProfile } from "@clerk/nextjs";
 const UserProfilePage = () => {
   return <UserProfile />;
 };
@@ -497,12 +497,12 @@ export default UserProfilePage;
 app/providers.jsx
 
 ```js
-'use client';
-import { Toaster } from 'react-hot-toast';
+"use client";
+import { Toaster } from "react-hot-toast";
 export default function Providers({ children }) {
   return (
     <>
-      <Toaster position='top-center' />
+      <Toaster position="top-center" />
       {children}
     </>
   );
@@ -548,12 +548,12 @@ This component represents a chat interface where users can send messages. It use
 - import in app/(dashboard)/chat/page.js
 
 ```js
-'use client';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+"use client";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Chat = () => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
 
   const handleSubmit = (e) => {
@@ -561,21 +561,21 @@ const Chat = () => {
   };
 
   return (
-    <div className='min-h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]'>
+    <div className="min-h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]">
       <div>
-        <h2 className='text-5xl'>messages</h2>
+        <h2 className="text-5xl">messages</h2>
       </div>
-      <form onSubmit={handleSubmit} className='max-w-4xl pt-12'>
-        <div className='join w-full'>
+      <form onSubmit={handleSubmit} className="max-w-4xl pt-12">
+        <div className="join w-full">
           <input
-            type='text'
-            placeholder='Message GeniusGPT'
-            className='input input-bordered join-item w-full'
+            type="text"
+            placeholder="Message GeniusGPT"
+            className="input input-bordered join-item w-full"
             value={text}
             required
             onChange={(e) => setText(e.target.value)}
           />
-          <button className='btn btn-primary join-item' type='submit'>
+          <button className="btn btn-primary join-item" type="submit">
             ask question
           </button>
         </div>
@@ -598,11 +598,11 @@ npm i @tanstack/react-query @tanstack/react-query-devtools
 ### Setup
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -613,7 +613,7 @@ const queryClient = new QueryClient({
   },
 });
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <App />
     <ReactQueryDevtools initialIsOpen={false} />
@@ -626,9 +626,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ```js
 const Items = () => {
   const { isPending, isError, data } = useQuery({
-    queryKey: ['tasks'],
+    queryKey: ["tasks"],
     // A query function can be literally any function that returns a promise.
-    queryFn: () => axios.get('/someUrl'),
+    queryFn: () => axios.get("/someUrl"),
   });
 
   if (isPending) {
@@ -639,7 +639,7 @@ const Items = () => {
     return <p>Error...</p>;
   }
   return (
-    <div className='items'>
+    <div className="items">
       {data.taskList.map((item) => {
         return <SingleItem key={item.id} item={item} />;
       })}
@@ -653,7 +653,7 @@ export default Items;
 
 ```js
 const { mutate, isPending, data } = useMutation({
-  mutationFn: (taskTitle) => axios.post('/', { title: taskTitle }),
+  mutationFn: (taskTitle) => axios.post("/", { title: taskTitle }),
   onSuccess: () => {
     // do something
   },
@@ -676,14 +676,14 @@ const handleSubmit = (e) => {
 
 ```js
 // In Next.js, this file would be called: app/providers.jsx
-'use client';
+"use client";
 
 // We can not useState or useRef in a server component, which is why we are
 // extracting this part out into it's own file with 'use client' on top
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Toaster } from 'react-hot-toast';
+import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 export default function Providers({ children }) {
   const [queryClient] = useState(
     () =>
@@ -700,7 +700,7 @@ export default function Providers({ children }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster position='top-center' />
+      <Toaster position="top-center" />
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
@@ -713,12 +713,12 @@ export default function Providers({ children }) {
 chat/page.js
 
 ```js
-import Chat from '@/components/Chat';
+import Chat from "@/components/Chat";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
+} from "@tanstack/react-query";
 export default async function ChatPage() {
   const queryClient = new QueryClient();
   return (
@@ -732,24 +732,24 @@ export default async function ChatPage() {
 utils/actions.js
 
 ```js
-'use server';
+"use server";
 
 export const generateChatResponse = async (chatMessage) => {
   console.log(chatMessage);
-  return 'awesome';
+  return "awesome";
 };
 ```
 
 components/Chat.jsx
 
 ```js
-'use client';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useMutation } from '@tanstack/react-query';
-import { generateChatResponse } from '@/utils/actions';
+"use client";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { generateChatResponse } from "@/utils/actions";
 const Chat = () => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
 
   const { mutate } = useMutation({
@@ -811,10 +811,10 @@ export const generateChatResponse = async (chatMessages) => {
   try {
     const response = await openai.chat.completions.create({
       messages: [
-        { role: 'system', content: 'you are a helpful assistant' },
+        { role: "system", content: "you are a helpful assistant" },
         ...chatMessages,
       ],
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
       temperature: 0,
     });
     return response.choices[0].message;
@@ -828,28 +828,28 @@ Chat.jsx
 
 ```js
 const Chat = () => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const { mutate, isPending, data } = useMutation({
     mutationFn: (query) => generateChatResponse([...messages, query]),
 
     onSuccess: (data) => {
       if (!data) {
-        toast.error('Something went wrong...');
+        toast.error("Something went wrong...");
         return;
       }
       setMessages((prev) => [...prev, data]);
     },
     onError: (error) => {
-      toast.error('Something went wrong...');
+      toast.error("Something went wrong...");
     },
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    const query = { role: 'user', content: text };
+    const query = { role: "user", content: text };
     mutate(query);
     setMessages((prev) => [...prev, query]);
-    setText('');
+    setText("");
   };
 };
 ```
@@ -862,30 +862,30 @@ Chat.jsx
 return (
   <div>
     {messages.map(({ role, content }, index) => {
-      const avatar = role == 'user' ? '👤' : '🤖';
-      const bcg = role == 'user' ? 'bg-base-200' : 'bg-base-100';
+      const avatar = role == "user" ? "👤" : "🤖";
+      const bcg = role == "user" ? "bg-base-200" : "bg-base-100";
       return (
         <div
           key={index}
           className={` ${bcg} flex py-6 -mx-8 px-8
                text-xl leading-loose border-b border-base-300`}
         >
-          <span className='mr-4 '>{avatar}</span>
-          <p className='max-w-3xl'>{content}</p>
+          <span className="mr-4 ">{avatar}</span>
+          <p className="max-w-3xl">{content}</p>
         </div>
       );
     })}
-    {isPending && <span className='loading'></span>}
+    {isPending && <span className="loading"></span>}
   </div>
 );
 
 return (
   <button
-    className='btn btn-primary join-item'
-    type='submit'
+    className="btn btn-primary join-item"
+    type="submit"
     disabled={isPending}
   >
-    {isPending ? 'please wait' : 'ask question'}
+    {isPending ? "please wait" : "ask question"}
   </button>
 );
 ```
@@ -903,12 +903,12 @@ return (
 tours/new-tour/page.js
 
 ```js
-import NewTour from '@/components/NewTour';
+import NewTour from "@/components/NewTour";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
+} from "@tanstack/react-query";
 export default async function ChatPage() {
   const queryClient = new QueryClient();
   return (
@@ -920,10 +920,10 @@ export default async function ChatPage() {
 ```
 
 ```js
-'use client';
+"use client";
 
-import toast from 'react-hot-toast';
-import TourInfo from '@/components/TourInfo';
+import toast from "react-hot-toast";
+import TourInfo from "@/components/TourInfo";
 
 const NewTour = () => {
   const handleSubmit = (e) => {
@@ -935,29 +935,29 @@ const NewTour = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className='max-w-2xl'>
-        <h2 className=' mb-4'>Select your dream destination</h2>
-        <div className='join w-full'>
+      <form onSubmit={handleSubmit} className="max-w-2xl">
+        <h2 className=" mb-4">Select your dream destination</h2>
+        <div className="join w-full">
           <input
-            type='text'
-            className='input input-bordered join-item w-full'
-            placeholder='city'
-            name='city'
+            type="text"
+            className="input input-bordered join-item w-full"
+            placeholder="city"
+            name="city"
             required
           />
           <input
-            type='text'
-            className='input input-bordered join-item w-full'
-            placeholder='country'
-            name='country'
+            type="text"
+            className="input input-bordered join-item w-full"
+            placeholder="country"
+            name="country"
             required
           />
-          <button className='btn btn-primary join-item' type='submit'>
+          <button className="btn btn-primary join-item" type="submit">
             generate tour
           </button>
         </div>
       </form>
-      <div className='mt-16'>
+      <div className="mt-16">
         <TourInfo />
       </div>
     </>
@@ -987,14 +987,14 @@ export const createNewTour = async (tour) => {
 NewTour.jsx
 
 ```js
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   createNewTour,
   generateTourResponse,
   getExistingTour,
-} from '@/utils/actions';
-import toast from 'react-hot-toast';
-import TourInfo from '@/components/TourInfo';
+} from "@/utils/actions";
+import toast from "react-hot-toast";
+import TourInfo from "@/components/TourInfo";
 
 const NewTour = () => {
   const {
@@ -1007,7 +1007,7 @@ const NewTour = () => {
       if (newTour) {
         return newTour;
       }
-      toast.error('No matching city found...');
+      toast.error("No matching city found...");
       return null;
     },
   });
@@ -1021,38 +1021,38 @@ const NewTour = () => {
   };
 
   if (isPending) {
-    return <span className='loading loading-lg'></span>;
+    return <span className="loading loading-lg"></span>;
   }
   return (
     <>
-      <form onSubmit={handleSubmit} className='max-w-2xl'>
-        <h2 className=' mb-4'>Select your dream destination</h2>
-        <div className='join w-full'>
+      <form onSubmit={handleSubmit} className="max-w-2xl">
+        <h2 className=" mb-4">Select your dream destination</h2>
+        <div className="join w-full">
           <input
-            type='text'
-            className='input input-bordered join-item w-full'
-            placeholder='city'
-            name='city'
+            type="text"
+            className="input input-bordered join-item w-full"
+            placeholder="city"
+            name="city"
             required
           />
           <input
-            type='text'
-            className='input input-bordered join-item w-full'
-            placeholder='country'
-            name='country'
+            type="text"
+            className="input input-bordered join-item w-full"
+            placeholder="country"
+            name="country"
             required
           />
           <button
-            className='btn btn-primary join-item'
-            type='submit'
+            className="btn btn-primary join-item"
+            type="submit"
             disabled={isPending}
           >
-            {isPending ? 'please wait...' : 'generate tour'}
+            {isPending ? "please wait..." : "generate tour"}
           </button>
         </div>
       </form>
-      <div className='mt-16'>
-        <div className='mt-16'>{tour ? <TourInfo tour={tour} /> : null}</div>
+      <div className="mt-16">
+        <div className="mt-16">{tour ? <TourInfo tour={tour} /> : null}</div>
       </div>
     </>
   );
@@ -1110,10 +1110,10 @@ If you can't find info on exact ${city}, or ${city} does not exist, or it's popu
   try {
     const response = await openai.chat.completions.create({
       messages: [
-        { role: 'system', content: 'you are a tour guide' },
-        { role: 'user', content: query },
+        { role: "system", content: "you are a tour guide" },
+        { role: "user", content: query },
       ],
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
       temperature: 0,
     });
     // potentially returns a text with error message
@@ -1150,14 +1150,14 @@ TourInfo.jsx
 const TourInfo = ({ tour }) => {
   const { title, description, stops } = tour;
   return (
-    <div className='max-w-2xl'>
-      <h1 className='text-4xl font-semibold mb-4'>{title}</h1>
-      <p className='leading-loose mb-6'>{description}</p>
+    <div className="max-w-2xl">
+      <h1 className="text-4xl font-semibold mb-4">{title}</h1>
+      <p className="leading-loose mb-6">{description}</p>
       <ul>
         {stops.map((stop) => {
           return (
-            <li key={stop} className='mb-4 bg-base-100 p-4 rounded-xl'>
-              <p className='text'>{stop}</p>
+            <li key={stop} className="mb-4 bg-base-100 p-4 rounded-xl">
+              <p className="text">{stop}</p>
             </li>
           );
         })}
@@ -1298,7 +1298,7 @@ export const getAllTours = async (searchTerm) => {
   if (!searchTerm) {
     const tours = await prisma.tour.findMany({
       orderBy: {
-        city: 'asc',
+        city: "asc",
       },
     });
 
@@ -1321,7 +1321,7 @@ export const getAllTours = async (searchTerm) => {
       ],
     },
     orderBy: {
-      city: 'asc',
+      city: "asc",
     },
   });
   return tours;
@@ -1334,17 +1334,17 @@ export const getAllTours = async (searchTerm) => {
 - create loading.js in app/tours
 
 ```js
-import ToursPage from '@/components/ToursPage';
+import ToursPage from "@/components/ToursPage";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
-} from '@tanstack/react-query';
-import { getAllTours } from '@/utils/actions';
+} from "@tanstack/react-query";
+import { getAllTours } from "@/utils/actions";
 export default async function AllToursPage() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ['tours'],
+    queryKey: ["tours"],
     queryFn: () => getAllTours(),
   });
   return (
@@ -1358,21 +1358,21 @@ export default async function AllToursPage() {
 ## ToursPage
 
 ```js
-'use client';
-import { getAllTours } from '@/utils/actions';
-import { useQuery } from '@tanstack/react-query';
-import ToursList from './ToursList';
+"use client";
+import { getAllTours } from "@/utils/actions";
+import { useQuery } from "@tanstack/react-query";
+import ToursList from "./ToursList";
 
 const ToursPage = () => {
   const { data, isPending } = useQuery({
-    queryKey: ['tours'],
+    queryKey: ["tours"],
     queryFn: () => getAllTours(),
   });
 
   return (
     <>
       {isPending ? (
-        <span className=' loading'></span>
+        <span className=" loading"></span>
       ) : (
         <ToursList data={data} />
       )}
@@ -1385,12 +1385,12 @@ export default ToursPage;
 ## ToursList
 
 ```js
-import TourCard from './TourCard';
+import TourCard from "./TourCard";
 const ToursList = ({ data }) => {
-  if (data.length === 0) return <h4 className='text-lg '>No tours found...</h4>;
+  if (data.length === 0) return <h4 className="text-lg ">No tours found...</h4>;
 
   return (
-    <div className='grid sm:grid-cols-2  lg:grid-cols-4 gap-8'>
+    <div className="grid sm:grid-cols-2  lg:grid-cols-4 gap-8">
       {data.map((tour) => {
         return <TourCard key={tour.id} tour={tour} />;
       })}
@@ -1403,17 +1403,17 @@ export default ToursList;
 ## TourCard
 
 ```js
-import Link from 'next/link';
+import Link from "next/link";
 const TourCard = ({ tour }) => {
   const { city, title, id, country } = tour;
 
   return (
     <Link
       href={`/tours/${id}`}
-      className='card card-compact rounded-xl bg-base-100'
+      className="card card-compact rounded-xl bg-base-100"
     >
-      <div className='card-body items-center text-center'>
-        <h2 className='card-title text-center'>
+      <div className="card-body items-center text-center">
+        <h2 className="card-title text-center">
           {city}, {country}
         </h2>
       </div>
@@ -1426,44 +1426,44 @@ export default TourCard;
 ## Search Functionality
 
 ```js
-'use client';
-import { getAllTours } from '@/utils/actions';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import ToursList from './ToursList';
+"use client";
+import { getAllTours } from "@/utils/actions";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import ToursList from "./ToursList";
 
 const ToursPage = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const { data, isPending } = useQuery({
-    queryKey: ['tours', searchValue],
+    queryKey: ["tours", searchValue],
     queryFn: () => getAllTours(searchValue),
   });
 
   return (
     <>
-      <form className='max-w-lg mb-12'>
-        <div className='join w-full'>
+      <form className="max-w-lg mb-12">
+        <div className="join w-full">
           <input
-            type='text'
-            placeholder='enter city or country here..'
-            className='input input-bordered join-item w-full'
-            name='search'
+            type="text"
+            placeholder="enter city or country here.."
+            className="input input-bordered join-item w-full"
+            name="search"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             required
           />
           <button
-            className='btn btn-primary join-item'
-            type='button'
+            className="btn btn-primary join-item"
+            type="button"
             disabled={isPending}
-            onClick={() => setSearchValue('')}
+            onClick={() => setSearchValue("")}
           >
-            {isPending ? 'please wait' : 'reset'}
+            {isPending ? "please wait" : "reset"}
           </button>
         </div>
       </form>
       {isPending ? (
-        <span className=' loading'></span>
+        <span className=" loading"></span>
       ) : (
         <ToursList data={data} />
       )}
@@ -1494,18 +1494,18 @@ export const getSingleTour = async (id) => {
 ```
 
 ```js
-import TourInfo from '@/components/TourInfo';
-import { getSingleTour } from '@/utils/actions';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import TourInfo from "@/components/TourInfo";
+import { getSingleTour } from "@/utils/actions";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 const SingleTourPage = async ({ params }) => {
   const tour = await getSingleTour(params.id);
   if (!tour) {
-    redirect('/tours');
+    redirect("/tours");
   }
   return (
     <div>
-      <Link href='/tours' className='btn btn-secondary mb-12'>
+      <Link href="/tours" className="btn btn-secondary mb-12">
         back to tours
       </Link>
       <TourInfo tour={tour} />
@@ -1528,7 +1528,7 @@ export const generateTourImage = async ({ city, country }) => {
     const tourImage = await openai.images.generate({
       prompt: `a panoramic view of the ${city} ${country}`,
       n: 1,
-      size: '512x512',
+      size: "512x512",
     });
     return tourImage?.data[0]?.url;
   } catch (error) {
@@ -1540,11 +1540,11 @@ export const generateTourImage = async ({ city, country }) => {
 app/tours/[id]/page.js
 
 ```js
-import TourInfo from '@/components/TourInfo';
-import { generateTourImage } from '@/utils/actions';
-import prisma from '@/utils/prisma';
-import Link from 'next/link';
-import Image from 'next/image';
+import TourInfo from "@/components/TourInfo";
+import { generateTourImage } from "@/utils/actions";
+import prisma from "@/utils/prisma";
+import Link from "next/link";
+import Image from "next/image";
 
 const SingleTourPage = async ({ params }) => {
   const tour = await prisma.tour.findUnique({
@@ -1559,7 +1559,7 @@ const SingleTourPage = async ({ params }) => {
   });
   return (
     <div>
-      <Link href='/tours' className='btn btn-secondary mb-12'>
+      <Link href="/tours" className="btn btn-secondary mb-12">
         back to tours
       </Link>
 
@@ -1569,7 +1569,7 @@ const SingleTourPage = async ({ params }) => {
             src={tourImage}
             width={300}
             height={300}
-            className='rounded-xl shadow-xl mb-16 h-96 w-96 object-cover'
+            className="rounded-xl shadow-xl mb-16 h-96 w-96 object-cover"
             alt={tour.title}
             priority
           />
@@ -1591,16 +1591,16 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'oaidalleapiprodscus.blob.core.windows.net',
-        port: '',
-        pathname: '/private/**',
+        protocol: "https",
+        hostname: "oaidalleapiprodscus.blob.core.windows.net",
+        port: "",
+        pathname: "/private/**",
       },
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
@@ -1622,12 +1622,12 @@ UNSPLASH_API_KEY=7pmB29Xi9rOWHhYpvtuc4edchzh1w0eawUjJwNAqngA
 ```
 
 ```js
-import TourInfo from '@/components/TourInfo';
-import { generateTourImage } from '@/utils/actions';
-import prisma from '@/utils/prisma';
-import Link from 'next/link';
-import Image from 'next/image';
-import axios from 'axios';
+import TourInfo from "@/components/TourInfo";
+import { generateTourImage } from "@/utils/actions";
+import prisma from "@/utils/prisma";
+import Link from "next/link";
+import Image from "next/image";
+import axios from "axios";
 const url = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_API_KEY}&query=`;
 
 const SingleTourPage = async ({ params }) => {
@@ -1646,7 +1646,7 @@ const SingleTourPage = async ({ params }) => {
   // });
   return (
     <div>
-      <Link href='/tours' className='btn btn-secondary mb-12'>
+      <Link href="/tours" className="btn btn-secondary mb-12">
         back to tours
       </Link>
 
@@ -1656,7 +1656,7 @@ const SingleTourPage = async ({ params }) => {
             src={tourImage}
             width={300}
             height={300}
-            className='rounded-xl shadow-xl mb-16 h-96 w-96 object-cover'
+            className="rounded-xl shadow-xl mb-16 h-96 w-96 object-cover"
             alt={tour.title}
             priority
           />
@@ -1776,7 +1776,7 @@ export const subtractTokens = async (clerkId, tokens) => {
       },
     },
   });
-  revalidatePath('/profile');
+  revalidatePath("/profile");
   // Return the new token value
   return result.tokens;
 };
@@ -1787,16 +1787,16 @@ export const subtractTokens = async (clerkId, tokens) => {
 components/MemberProfile.jsx
 
 ```js
-import { fetchOrGenerateTokens } from '@/utils/actions';
-import { UserButton, auth, currentUser } from '@clerk/nextjs';
+import { fetchOrGenerateTokens } from "@/utils/actions";
+import { UserButton, auth, currentUser } from "@clerk/nextjs";
 
 const MemberProfile = async () => {
   const user = await currentUser();
   const { userId } = auth();
   await fetchOrGenerateTokens(userId);
   return (
-    <div className='px-4 flex items-center gap-2'>
-      <UserButton afterSignOutUrl='/' />
+    <div className="px-4 flex items-center gap-2">
+      <UserButton afterSignOutUrl="/" />
       <p>{user.emailAddresses[0].emailAddress}</p>
     </div>
   );
@@ -1807,15 +1807,15 @@ export default MemberProfile;
 profile/page.js
 
 ```js
-import { fetchUserTokensById } from '@/utils/actions';
-import { UserProfile, auth } from '@clerk/nextjs';
-export const dynamic = 'force-dynamic';
+import { fetchUserTokensById } from "@/utils/actions";
+import { UserProfile, auth } from "@clerk/nextjs";
+export const dynamic = "force-dynamic";
 const ProfilePage = async () => {
   const { userId } = auth();
   const currentTokens = await fetchUserTokensById(userId);
   return (
     <div>
-      <h2 className='mb-8 ml-8 text-xl font-extrabold'>
+      <h2 className="mb-8 ml-8 text-xl font-extrabold">
         Token Amount : {currentTokens}
       </h2>
       <UserProfile />
@@ -1955,13 +1955,13 @@ package.json
 middleware.ts
 
 ```ts
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isProtectedRoute = createRouteMatcher([
-  '/chat(.*)',
-  '/profile(.*)',
-  '/chat(.*)',
-  '/tours(.*)',
+  "/chat(.*)",
+  "/profile(.*)",
+  "/chat(.*)",
+  "/tours(.*)",
 ]);
 
 export default clerkMiddleware((auth, req) => {
@@ -1969,24 +1969,24 @@ export default clerkMiddleware((auth, req) => {
 });
 
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };
 ```
 
 MemberProfile.jsx
 
 ```tsx
-import { fetchOrGenerateTokens } from '@/utils/actions';
-import { UserButton } from '@clerk/nextjs';
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { fetchOrGenerateTokens } from "@/utils/actions";
+import { UserButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 const MemberProfile = async () => {
   const user = await currentUser();
   const { userId } = auth();
   await fetchOrGenerateTokens(userId);
   return (
-    <div className='px-4 flex items-center gap-2'>
-      <UserButton afterSignOutUrl='/' />
+    <div className="px-4 flex items-center gap-2">
+      <UserButton afterSignOutUrl="/" />
       <p>{user.emailAddresses[0].emailAddress}</p>
     </div>
   );
@@ -1995,19 +1995,19 @@ export default MemberProfile;
 ```
 
 ```tsx
-import { fetchUserTokensById } from '@/utils/actions';
-import { UserProfile } from '@clerk/nextjs';
-import { auth } from '@clerk/nextjs/server';
+import { fetchUserTokensById } from "@/utils/actions";
+import { UserProfile } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 const ProfilePage = async () => {
   const { userId } = auth();
   const currentTokens = await fetchUserTokensById(userId);
   return (
     <div>
-      <h2 className='mb-8 ml-8 text-xl font-extrabold'>
+      <h2 className="mb-8 ml-8 text-xl font-extrabold">
         Token Amount : {currentTokens}
       </h2>
-      <UserProfile routing='hash' />
+      <UserProfile routing="hash" />
     </div>
   );
 };
@@ -2041,37 +2041,37 @@ npm install next @clerk/nextjs
 - refactor middleware.ts
 
 ```ts
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 // public routes in our case '/'
-const isPublicRoute = createRouteMatcher(['/']);
+const isPublicRoute = createRouteMatcher(["/"]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) auth().protect();
 });
 
 export const config = {
-  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };
 ```
 
 - refactor components/MemberProfile.jsx
 
 ```jsx
-import { UserButton } from '@clerk/nextjs';
+import { UserButton } from "@clerk/nextjs";
 // auth and currentUser are now imported from /server
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { auth, currentUser } from "@clerk/nextjs/server";
 ```
 
 - refactor app/(dashboard)/profile/page.js
 
 ```js
-import { UserProfile } from '@clerk/nextjs';
-import { auth } from '@clerk/nextjs/server';
+import { UserProfile } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 return (
   <>
-    <UserProfile routing='hash' />
+    <UserProfile routing="hash" />
   </>
 );
 ```

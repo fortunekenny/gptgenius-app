@@ -8,31 +8,40 @@ import {
 } from "@/utils/actions";
 import toast from "react-hot-toast";
 import TourInfo from "./TourInfo";
-import { useState } from "react";
+import { fetchUserTokensById, subtractTokens } from "@/utils/actions";
+import { useAuth } from "@clerk/nextjs";
 
 const NewTour = () => {
-  const [exist, setExist] = useState(false);
   const queryClient = useQueryClient();
+  const { userId } = useAuth();
   const {
     mutate,
     isPending,
-    data: tour, // data is renamed result
-    // data: tour,
+    data: tour, // data is renamed tour
   } = useMutation({
     mutationFn: async (destination) => {
       const existingTour = await getExistingTour(destination);
-      if (existingTour) {
-        setExist(true);
-        return existingTour;
+      if (existingTour) return existingTour;
+
+      const currentTokens = await fetchUserTokensById(userId);
+
+      if (currentTokens < 300) {
+        toast.error("Token balance too low....");
+        return;
       }
+
       const newTour = await generateTourResponse(destination);
-      if (newTour) {
-        await createNewTour(newTour);
-        queryClient.invalidateQueries({ queryKey: ["tours"] });
-        return newTour;
+
+      if (!newTour) {
+        toast.error("No matching city found...");
+        return null;
       }
-      toast.error("No matching city found...");
-      return null;
+
+      const response = await createNewTour(newTour.tour);
+      queryClient.invalidateQueries({ queryKey: ["tours"] });
+      const newTokens = await subtractTokens(userId, newTour.tokens);
+      toast.success(`${newTokens} tokens remaining...`);
+      return newTour.tour;
     },
   });
 
@@ -76,6 +85,7 @@ const NewTour = () => {
         </div>
       </form>
       <div className="mt-16">
+        {/* {console.log("newtour", tour)} */}
         <div className="mt-16">{tour ? <TourInfo tour={tour} /> : null}</div>
       </div>
     </>

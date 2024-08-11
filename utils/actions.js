@@ -3,6 +3,7 @@
 import LlamaAI from "llamaai";
 import prisma from "@/utils/db";
 import { Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 const llamaAPI = new LlamaAI(process.env.LLAMA_API_KEY);
 
@@ -54,10 +55,12 @@ Once you have a list, create a one-day tour. The response should be in the follo
     "country": "${country}",
     "title": "title of the tour",
     "description": "description of the city and tour",
-    "stops": ["short paragraph on stop 1", "short paragraph on stop 2", "short paragraph on stop 3"]
+    "stops": ["short paragraph on stop 1", "short paragraph on stop 2"]
   }
 }
 If you can't find info on the exact ${city}, or ${city} does not exist, or its population is less than 1, or it is not located in the specified ${country}, return { "tour": null } with no additional characters.`;
+
+  //, "short paragraph on stop 3"
 
   const apiRequestJson = {
     model: "llama3.1-405b", // Ensure this model is available and correct
@@ -66,7 +69,7 @@ If you can't find info on the exact ${city}, or ${city} does not exist, or its p
       { role: "user", content: query },
     ],
     temperature: 0,
-    max_tokens: 1000,
+    max_tokens: 500,
   };
 
   try {
@@ -80,8 +83,9 @@ If you can't find info on the exact ${city}, or ${city} does not exist, or its p
       );
     }
 
-    console.log("total_tokens", tokens);
-    return tourData.tour;
+    // console.log("total_tokens", tokens);
+    console.log("response", { tour: tourData.tour, tokens: tokens });
+    return { tour: tourData.tour, tokens: tokens };
   } catch (error) {
     console.error(
       "Error in generateTourResponse:",
@@ -104,13 +108,13 @@ export const getExistingTour = async ({ city, country }) => {
   });
 };
 
-/*export const createNewTour = async (tour) => {
+export const createNewTour = async (tour) => {
   return prisma.tour.create({
     data: tour,
   });
-};*/
+};
 
-export const createNewTour = async (tour) => {
+/*export const createNewTour = async (tour) => {
   // Validate the input data against the schema
   if (
     !tour.city ||
@@ -141,7 +145,7 @@ export const createNewTour = async (tour) => {
       throw error;
     }
   }
-};
+};*/
 
 export const getAllTours = async (searchTerm) => {
   if (!searchTerm) {
@@ -184,4 +188,81 @@ export const getSingleTour = async (id) => {
       id,
     },
   });
+};
+
+export const fetchUserTokensById = async (clerkId) => {
+  const result = await prisma.token.findUnique({
+    where: {
+      clerkId,
+    },
+  });
+
+  return result?.tokens;
+};
+
+export const generateUserTokensForId = async (clerkId) => {
+  const result = await prisma.token.create({
+    data: {
+      clerkId,
+    },
+  });
+  return result?.tokens;
+};
+
+export const fetchOrGenerateTokens = async (clerkId) => {
+  const result = await fetchUserTokensById(clerkId);
+  if (result) {
+    return result.tokens;
+  }
+  return (await generateUserTokensForId(clerkId)).tokens;
+};
+
+export const subtractTokens = async (clerkId, tokens) => {
+  const result = await prisma.token.update({
+    where: {
+      clerkId,
+    },
+    data: {
+      tokens: {
+        decrement: tokens,
+      },
+    },
+  });
+  revalidatePath("/profile");
+  // Return the new token value
+  return result.tokens;
+};
+
+export const incrementTokensTo1000IfLessThan300 = async (clerkId) => {
+  // First, retrieve the current token balance for the user
+  const user = await prisma.token.findUnique({
+    where: {
+      clerkId,
+    },
+    select: {
+      tokens: true,
+    },
+  });
+
+  // Check if the user's token balance is less than 300
+  if (user.tokens < 300) {
+    // Set the tokens to 1000
+    const result = await prisma.token.update({
+      where: {
+        clerkId,
+      },
+      data: {
+        tokens: 1000, // Directly set the token balance to 1000
+      },
+    });
+
+    // Revalidate the path (optional, depending on your setup)
+    revalidatePath("/profile");
+
+    // Return the new token value (which should be 1000)
+    return result.tokens;
+  } else {
+    // If tokens are 300 or more, return the current token value without change
+    return user.tokens;
+  }
 };
