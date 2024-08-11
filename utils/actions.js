@@ -69,7 +69,7 @@ If you can't find info on the exact ${city}, or ${city} does not exist, or its p
       { role: "user", content: query },
     ],
     temperature: 0,
-    max_tokens: 500,
+    max_tokens: 300,
   };
 
   try {
@@ -83,8 +83,7 @@ If you can't find info on the exact ${city}, or ${city} does not exist, or its p
       );
     }
 
-    // console.log("total_tokens", tokens);
-    console.log("response", { tour: tourData.tour, tokens: tokens });
+    // console.log("response", { tour: tourData.tour, tokens: tokens });
     return { tour: tourData.tour, tokens: tokens };
   } catch (error) {
     console.error(
@@ -113,39 +112,6 @@ export const createNewTour = async (tour) => {
     data: tour,
   });
 };
-
-/*export const createNewTour = async (tour) => {
-  // Validate the input data against the schema
-  if (
-    !tour.city ||
-    !tour.country ||
-    !tour.title ||
-    !tour.description ||
-    !tour.stops
-  ) {
-    throw new Error("Invalid tour data. Missing required fields.");
-  }
-
-  // console.log("Creating new tour with data:", tour);
-  try {
-    return await prisma.tour.create({
-      data: tour,
-    });
-  } catch (error) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
-    ) {
-      console.error("Unique constraint failed on the fields: (city, country)");
-      throw new Error(
-        "Tour for the specified city and country already exists."
-      );
-    } else {
-      console.error("Error creating new tour:", error);
-      throw error;
-    }
-  }
-};*/
 
 export const getAllTours = async (searchTerm) => {
   if (!searchTerm) {
