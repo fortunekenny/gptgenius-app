@@ -69,7 +69,7 @@ If you can't find info on the exact ${city}, or ${city} does not exist, or its p
       { role: "user", content: query },
     ],
     temperature: 0,
-    max_tokens: 300,
+    max_tokens: 500,
   };
 
   try {

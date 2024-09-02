@@ -1,4 +1,4 @@
-## Create Next App
+# Create Next App
 
 ```sh
 npx create-next-app@latest appName
@@ -55,15 +55,18 @@ app/page.js
 import Link from "next/link";
 const HomePage = () => {
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-6xl font-bold text-primary">GPTGenius</h1>
-          <p className="py-6 text-lg leading-loose">
+    <div className='hero min-h-screen bg-base-200'>
+      <div className='hero-content text-center'>
+        <div className='max-w-md'>
+          <h1 className='text-6xl font-bold text-primary'>GPTGenius</h1>
+          <p className='py-6 text-lg leading-loose'>
             GPTGenius: Your AI language companion. Powered by OpenAI, it
             enhances your conversations, content creation, and more!
           </p>
-          <Link href="/chat" className="btn btn-secondary ">
+          <Link
+            href='/chat'
+            className='btn btn-secondary '
+          >
             Get Started
           </Link>
         </div>
@@ -77,7 +80,7 @@ export default HomePage;
 
 ## Clerk
 
-(Clerk Docs)[https://clerk.com/]
+[Clerk Docs](https://clerk.com/)
 
 - create account
 - create new application
@@ -110,7 +113,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang='en'>
         <body>{children}</body>
       </html>
     </ClerkProvider>
@@ -147,7 +150,7 @@ import { SignUp } from "@clerk/nextjs";
 
 const SignUpPage = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className='min-h-screen flex justify-center items-center'>
       <SignUp />
     </div>
   );
@@ -162,7 +165,7 @@ import { SignIn } from "@clerk/nextjs";
 
 const SignInPage = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className='min-h-screen flex justify-center items-center'>
       <SignIn />
     </div>
   );
@@ -181,7 +184,7 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/chat
 
 ## React Icons
 
-(React Icons )[https://react-icons.github.io/react-icons/]
+[React Icons](https://react-icons.github.io/react-icons/)
 
 ```sh
 npm install react-icons --save
@@ -211,23 +214,27 @@ import { FaBarsStaggered } from "react-icons/fa6";
 import Sidebar from "@/components/Sidebar";
 const layout = ({ children }) => {
   return (
-    <div className="drawer lg:drawer-open">
-      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
+    <div className='drawer lg:drawer-open'>
+      <input
+        id='my-drawer-2'
+        type='checkbox'
+        className='drawer-toggle'
+      />
+      <div className='drawer-content'>
         {/* Page content here */}
         <label
-          htmlFor="my-drawer-2"
-          className="drawer-button lg:hidden fixed top-6 right-6"
+          htmlFor='my-drawer-2'
+          className='drawer-button lg:hidden fixed top-6 right-6'
         >
-          <FaBarsStaggered className="w-8 h-8 text-primary" />
+          <FaBarsStaggered className='w-8 h-8 text-primary' />
         </label>
-        <div className="bg-base-200 px-8 py-12 min-h-screen">{children}</div>
+        <div className='bg-base-200 px-8 py-12 min-h-screen'>{children}</div>
       </div>
-      <div className="drawer-side">
+      <div className='drawer-side'>
         <label
-          htmlFor="my-drawer-2"
-          aria-label="close sidebar"
-          className="drawer-overlay"
+          htmlFor='my-drawer-2'
+          aria-label='close sidebar'
+          className='drawer-overlay'
         ></label>
         <Sidebar />
       </div>
@@ -250,7 +257,7 @@ import MemberProfile from "./MemberProfile";
 
 const Sidebar = () => {
   return (
-    <div className="px-4 w-80 min-h-full bg-base-300 py-12 grid grid-rows-[auto,1fr,auto] ">
+    <div className='px-4 w-80 min-h-full bg-base-300 py-12 grid grid-rows-[auto,1fr,auto] '>
       {/* first row */}
       <SidebarHeader />
       {/* second row */}
@@ -273,9 +280,9 @@ import { SiOpenaigym } from "react-icons/si";
 
 const SidebarHeader = () => {
   return (
-    <div className="flex items-center mb-4 gap-4 px-4">
-      <SiOpenaigym className="w-10 h-10 text-primary" />
-      <h2 className="text-xl font-extrabold text-primary mr-auto">GPTGenius</h2>
+    <div className='flex items-center mb-4 gap-4 px-4'>
+      <SiOpenaigym className='w-10 h-10 text-primary' />
+      <h2 className='text-xl font-extrabold text-primary mr-auto'>GPTGenius</h2>
       <ThemeToggle />
     </div>
   );
@@ -322,11 +329,14 @@ const links = [
 
 const NavLinks = () => {
   return (
-    <ul className="menu  text-base-content">
+    <ul className='menu  text-base-content'>
       {links.map((link) => {
         return (
           <li key={link.href}>
-            <Link href={link.href} className="capitalize">
+            <Link
+              href={link.href}
+              className='capitalize'
+            >
               {link.label}
             </Link>
           </li>
@@ -373,8 +383,8 @@ const MemberProfile = async () => {
   const user = await currentUser();
   const { userId } = auth();
   return (
-    <div className="px-4 flex items-center gap-2">
-      <UserButton afterSignOutUrl="/" />
+    <div className='px-4 flex items-center gap-2'>
+      <UserButton afterSignOutUrl='/' />
       <p>{user.emailAddresses[0].emailAddress}</p>
     </div>
   );
@@ -452,11 +462,14 @@ const ThemeToggle = () => {
   };
 
   return (
-    <button onClick={toggleTheme} className="btn btn-sm btn-outline">
+    <button
+      onClick={toggleTheme}
+      className='btn btn-sm btn-outline'
+    >
       {theme === "winter" ? (
-        <BsMoonFill className="h-4 w-4 " />
+        <BsMoonFill className='h-4 w-4 ' />
       ) : (
-        <BsSunFill className="h-4 w-4" />
+        <BsSunFill className='h-4 w-4' />
       )}
     </button>
   );
@@ -502,7 +515,7 @@ import { Toaster } from "react-hot-toast";
 export default function Providers({ children }) {
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster position='top-center' />
       {children}
     </>
   );
@@ -561,21 +574,27 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]">
+    <div className='min-h-[calc(100vh-6rem)] grid grid-rows-[1fr,auto]'>
       <div>
-        <h2 className="text-5xl">messages</h2>
+        <h2 className='text-5xl'>messages</h2>
       </div>
-      <form onSubmit={handleSubmit} className="max-w-4xl pt-12">
-        <div className="join w-full">
+      <form
+        onSubmit={handleSubmit}
+        className='max-w-4xl pt-12'
+      >
+        <div className='join w-full'>
           <input
-            type="text"
-            placeholder="Message GeniusGPT"
-            className="input input-bordered join-item w-full"
+            type='text'
+            placeholder='Message GeniusGPT'
+            className='input input-bordered join-item w-full'
             value={text}
             required
             onChange={(e) => setText(e.target.value)}
           />
-          <button className="btn btn-primary join-item" type="submit">
+          <button
+            className='btn btn-primary join-item'
+            type='submit'
+          >
             ask question
           </button>
         </div>
@@ -617,7 +636,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <App />
     <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+  </QueryClientProvider>,
 );
 ```
 
@@ -639,9 +658,14 @@ const Items = () => {
     return <p>Error...</p>;
   }
   return (
-    <div className="items">
+    <div className='items'>
       {data.taskList.map((item) => {
-        return <SingleItem key={item.id} item={item} />;
+        return (
+          <SingleItem
+            key={item.id}
+            item={item}
+          />
+        );
       })}
     </div>
   );
@@ -695,12 +719,12 @@ export default function Providers({ children }) {
             staleTime: 60 * 1000,
           },
         },
-      })
+      }),
   );
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster position="top-center" />
+      <Toaster position='top-center' />
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
@@ -802,7 +826,7 @@ export const generateChatResponse = async (message) => {
 };
 ```
 
-## Context !!!
+## Context
 
 utils/actions
 
@@ -870,19 +894,19 @@ return (
           className={` ${bcg} flex py-6 -mx-8 px-8
                text-xl leading-loose border-b border-base-300`}
         >
-          <span className="mr-4 ">{avatar}</span>
-          <p className="max-w-3xl">{content}</p>
+          <span className='mr-4 '>{avatar}</span>
+          <p className='max-w-3xl'>{content}</p>
         </div>
       );
     })}
-    {isPending && <span className="loading"></span>}
+    {isPending && <span className='loading'></span>}
   </div>
 );
 
 return (
   <button
-    className="btn btn-primary join-item"
-    type="submit"
+    className='btn btn-primary join-item'
+    type='submit'
     disabled={isPending}
   >
     {isPending ? "please wait" : "ask question"}
@@ -935,29 +959,35 @@ const NewTour = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="max-w-2xl">
-        <h2 className=" mb-4">Select your dream destination</h2>
-        <div className="join w-full">
+      <form
+        onSubmit={handleSubmit}
+        className='max-w-2xl'
+      >
+        <h2 className=' mb-4'>Select your dream destination</h2>
+        <div className='join w-full'>
           <input
-            type="text"
-            className="input input-bordered join-item w-full"
-            placeholder="city"
-            name="city"
+            type='text'
+            className='input input-bordered join-item w-full'
+            placeholder='city'
+            name='city'
             required
           />
           <input
-            type="text"
-            className="input input-bordered join-item w-full"
-            placeholder="country"
-            name="country"
+            type='text'
+            className='input input-bordered join-item w-full'
+            placeholder='country'
+            name='country'
             required
           />
-          <button className="btn btn-primary join-item" type="submit">
+          <button
+            className='btn btn-primary join-item'
+            type='submit'
+          >
             generate tour
           </button>
         </div>
       </form>
-      <div className="mt-16">
+      <div className='mt-16'>
         <TourInfo />
       </div>
     </>
@@ -1021,38 +1051,41 @@ const NewTour = () => {
   };
 
   if (isPending) {
-    return <span className="loading loading-lg"></span>;
+    return <span className='loading loading-lg'></span>;
   }
   return (
     <>
-      <form onSubmit={handleSubmit} className="max-w-2xl">
-        <h2 className=" mb-4">Select your dream destination</h2>
-        <div className="join w-full">
+      <form
+        onSubmit={handleSubmit}
+        className='max-w-2xl'
+      >
+        <h2 className=' mb-4'>Select your dream destination</h2>
+        <div className='join w-full'>
           <input
-            type="text"
-            className="input input-bordered join-item w-full"
-            placeholder="city"
-            name="city"
+            type='text'
+            className='input input-bordered join-item w-full'
+            placeholder='city'
+            name='city'
             required
           />
           <input
-            type="text"
-            className="input input-bordered join-item w-full"
-            placeholder="country"
-            name="country"
+            type='text'
+            className='input input-bordered join-item w-full'
+            placeholder='country'
+            name='country'
             required
           />
           <button
-            className="btn btn-primary join-item"
-            type="submit"
+            className='btn btn-primary join-item'
+            type='submit'
             disabled={isPending}
           >
             {isPending ? "please wait..." : "generate tour"}
           </button>
         </div>
       </form>
-      <div className="mt-16">
-        <div className="mt-16">{tour ? <TourInfo tour={tour} /> : null}</div>
+      <div className='mt-16'>
+        <div className='mt-16'>{tour ? <TourInfo tour={tour} /> : null}</div>
       </div>
     </>
   );
@@ -1150,14 +1183,17 @@ TourInfo.jsx
 const TourInfo = ({ tour }) => {
   const { title, description, stops } = tour;
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-4xl font-semibold mb-4">{title}</h1>
-      <p className="leading-loose mb-6">{description}</p>
+    <div className='max-w-2xl'>
+      <h1 className='text-4xl font-semibold mb-4'>{title}</h1>
+      <p className='leading-loose mb-6'>{description}</p>
       <ul>
         {stops.map((stop) => {
           return (
-            <li key={stop} className="mb-4 bg-base-100 p-4 rounded-xl">
-              <p className="text">{stop}</p>
+            <li
+              key={stop}
+              className='mb-4 bg-base-100 p-4 rounded-xl'
+            >
+              <p className='text'>{stop}</p>
             </li>
           );
         })}
@@ -1372,7 +1408,7 @@ const ToursPage = () => {
   return (
     <>
       {isPending ? (
-        <span className=" loading"></span>
+        <span className=' loading'></span>
       ) : (
         <ToursList data={data} />
       )}
@@ -1387,12 +1423,17 @@ export default ToursPage;
 ```js
 import TourCard from "./TourCard";
 const ToursList = ({ data }) => {
-  if (data.length === 0) return <h4 className="text-lg ">No tours found...</h4>;
+  if (data.length === 0) return <h4 className='text-lg '>No tours found...</h4>;
 
   return (
-    <div className="grid sm:grid-cols-2  lg:grid-cols-4 gap-8">
+    <div className='grid sm:grid-cols-2  lg:grid-cols-4 gap-8'>
       {data.map((tour) => {
-        return <TourCard key={tour.id} tour={tour} />;
+        return (
+          <TourCard
+            key={tour.id}
+            tour={tour}
+          />
+        );
       })}
     </div>
   );
@@ -1410,10 +1451,10 @@ const TourCard = ({ tour }) => {
   return (
     <Link
       href={`/tours/${id}`}
-      className="card card-compact rounded-xl bg-base-100"
+      className='card card-compact rounded-xl bg-base-100'
     >
-      <div className="card-body items-center text-center">
-        <h2 className="card-title text-center">
+      <div className='card-body items-center text-center'>
+        <h2 className='card-title text-center'>
           {city}, {country}
         </h2>
       </div>
@@ -1441,20 +1482,20 @@ const ToursPage = () => {
 
   return (
     <>
-      <form className="max-w-lg mb-12">
-        <div className="join w-full">
+      <form className='max-w-lg mb-12'>
+        <div className='join w-full'>
           <input
-            type="text"
-            placeholder="enter city or country here.."
-            className="input input-bordered join-item w-full"
-            name="search"
+            type='text'
+            placeholder='enter city or country here..'
+            className='input input-bordered join-item w-full'
+            name='search'
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             required
           />
           <button
-            className="btn btn-primary join-item"
-            type="button"
+            className='btn btn-primary join-item'
+            type='button'
             disabled={isPending}
             onClick={() => setSearchValue("")}
           >
@@ -1463,7 +1504,7 @@ const ToursPage = () => {
         </div>
       </form>
       {isPending ? (
-        <span className=" loading"></span>
+        <span className=' loading'></span>
       ) : (
         <ToursList data={data} />
       )}
@@ -1505,7 +1546,10 @@ const SingleTourPage = async ({ params }) => {
   }
   return (
     <div>
-      <Link href="/tours" className="btn btn-secondary mb-12">
+      <Link
+        href='/tours'
+        className='btn btn-secondary mb-12'
+      >
         back to tours
       </Link>
       <TourInfo tour={tour} />
@@ -1559,7 +1603,10 @@ const SingleTourPage = async ({ params }) => {
   });
   return (
     <div>
-      <Link href="/tours" className="btn btn-secondary mb-12">
+      <Link
+        href='/tours'
+        className='btn btn-secondary mb-12'
+      >
         back to tours
       </Link>
 
@@ -1569,7 +1616,7 @@ const SingleTourPage = async ({ params }) => {
             src={tourImage}
             width={300}
             height={300}
-            className="rounded-xl shadow-xl mb-16 h-96 w-96 object-cover"
+            className='rounded-xl shadow-xl mb-16 h-96 w-96 object-cover'
             alt={tour.title}
             priority
           />
@@ -1646,7 +1693,10 @@ const SingleTourPage = async ({ params }) => {
   // });
   return (
     <div>
-      <Link href="/tours" className="btn btn-secondary mb-12">
+      <Link
+        href='/tours'
+        className='btn btn-secondary mb-12'
+      >
         back to tours
       </Link>
 
@@ -1656,7 +1706,7 @@ const SingleTourPage = async ({ params }) => {
             src={tourImage}
             width={300}
             height={300}
-            className="rounded-xl shadow-xl mb-16 h-96 w-96 object-cover"
+            className='rounded-xl shadow-xl mb-16 h-96 w-96 object-cover'
             alt={tour.title}
             priority
           />
@@ -1795,8 +1845,8 @@ const MemberProfile = async () => {
   const { userId } = auth();
   await fetchOrGenerateTokens(userId);
   return (
-    <div className="px-4 flex items-center gap-2">
-      <UserButton afterSignOutUrl="/" />
+    <div className='px-4 flex items-center gap-2'>
+      <UserButton afterSignOutUrl='/' />
       <p>{user.emailAddresses[0].emailAddress}</p>
     </div>
   );
@@ -1815,7 +1865,7 @@ const ProfilePage = async () => {
   const currentTokens = await fetchUserTokensById(userId);
   return (
     <div>
-      <h2 className="mb-8 ml-8 text-xl font-extrabold">
+      <h2 className='mb-8 ml-8 text-xl font-extrabold'>
         Token Amount : {currentTokens}
       </h2>
       <UserProfile />
@@ -1985,8 +2035,8 @@ const MemberProfile = async () => {
   const { userId } = auth();
   await fetchOrGenerateTokens(userId);
   return (
-    <div className="px-4 flex items-center gap-2">
-      <UserButton afterSignOutUrl="/" />
+    <div className='px-4 flex items-center gap-2'>
+      <UserButton afterSignOutUrl='/' />
       <p>{user.emailAddresses[0].emailAddress}</p>
     </div>
   );
@@ -2004,10 +2054,10 @@ const ProfilePage = async () => {
   const currentTokens = await fetchUserTokensById(userId);
   return (
     <div>
-      <h2 className="mb-8 ml-8 text-xl font-extrabold">
+      <h2 className='mb-8 ml-8 text-xl font-extrabold'>
         Token Amount : {currentTokens}
       </h2>
-      <UserProfile routing="hash" />
+      <UserProfile routing='hash' />
     </div>
   );
 };
@@ -2071,7 +2121,7 @@ import { auth } from "@clerk/nextjs/server";
 
 return (
   <>
-    <UserProfile routing="hash" />
+    <UserProfile routing='hash' />
   </>
 );
 ```
